@@ -93,51 +93,82 @@
     ],
 
     "socialqs_r2" : {
-        "open_response" : ["Q1", "Q2", "Q3"],
+        "open_response" : ["Take a moment to reflect on your current relationships. What are the best and worst things you've done to another person recently? Write them out.", 
+        "Choose one social interaction that you felt went poorly. What could you have done differently to improve it?",
+        "When you think about who you are and what you want to be in life, who's perspective do you see yourself through? Whose respect really matters to you?"],
         "word_association" : {
-            "prompts" : ["P1", "P2", "P3"],
-            "banks" : []
+            "prompts" : ["What do you feel when a friend or loved one criticizes you?", 
+            "What do you feel when a friend or loved one asks you to make a sacrifice for them?",
+            "What do you feel when you're asked to take time out of your day for someone or something in your community."],
+            "banks" : ["anger", "annoyance", "frustration", "empathy", "sympathy", "apathy", "concern", "sadness", "confusion", "condemnation", "anxiety", "enjoyment", "graciousness", "love", "hate", "impatience", "patience"]
         },
         "conditioning" : {
-            "actions" : ["A1", "A2", "A3"],
-            "frequency" : []
+            "actions" : ["I try to put my self in the shoes of other people who are having troubeles.", 
+            "I share resources that I have earned with others in my community.", 
+            "I make efforts to know how I can be a better member of my community."],
+            "frequency" : ["Never", "Rarely", "Sometimes", "Often", "Always"]
         }
     },
 
 
     "selfqs_r2" : {
-        "open_response" : ["Q1", "Q2", "Q3"],
+        "open_response" : ["Think about your job. Are you happy with how your work effects the world?", 
+        "Consider your everyday life. What habits do you have that you wish you could break?", 
+        "When you try to make a change in life, what barriers do you believe you face?"],
         "word_association" : {
-            "prompts" : ["P1", "P2", "P3"],
-            "banks" : []
+            "prompts" : ["What words would you associate with your job (if you're a student, with school)?", 
+            "What words would you associate with yourself as a person?", 
+            "What words would you associate with your future?"],
+            "banks" : ["boredom", "confusion", "pride", "confidence", "doubt", "fear", "disappointment", "diligence", "excitement", "sad", "interesting", "sexy", "love", "hate", "anxiety"]
         },
         "conditioning" : {
-            "actions" : ["A1", "A2", "A3"],
-            "frequency" : []
+            "actions" : ["I take care of my body and mind.", 
+            "I am proud of what I am doing.", 
+            "I put in extra effort to become a better person."],
+            "frequency" : ["Never", "Rarely", "Sometimes", "Often", "Always"]
         }
     },
 
     "meaningqs_r2" : {
-        "open_response" : ["Q1", "Q2", "Q3"],
+        "open_response" : ["Consider your current life situation. What do you see yourself working toward?", 
+        "Think about when you feel most proud of yourself. Describe what are you doing?", 
+        "What's the most important thing for you? Are you doing it?"],
         "word_association" : {
-            "prompts" : ["P1", "P2", "P3"],
-            "banks" : []
+            "prompts" : ["If you were going to die today, what words would you use describe your life?", 
+            "What words best describe how you feel about the world?", 
+            "What words would you use to describe the meaning of life?"],
+            "banks" : ["concerned", "important", "love", "confused", "boredom", "greed", "amazing", "enjoyable", "terrible", "angry", "corrupt", "fun", "happiness", "comfort", "shitty", "nothing", "sharing"]
         },
         "conditioning" : {
-            "actions" : ["A1", "A2", "A3"],
-            "frequency" : []
+            "actions" : ["I take time to reflect on what I'm doing with my life.", 
+            "I find my actions contribute to a greater good around me.", 
+            "I make time to do the things I love."],
+            "frequency" : ["Never", "Rarely", "Sometimes", "Often", "Always"]
         }
     },
 
     "perspectiveqs_r2" : {
-        "open_response" : ["Q1", "Q2", "Q3"],
+        "open_response" : ["What about your life makes you feel lucky?", 
+        "What is the hardest thing you've ever had to overcome?", 
+        "What are your biggest stressors on a daily basis? How hard would it be to fix them?"],
         "word_association" : {
-            "prompts" : ["P1", "P2", "P3"],
-            "banks" : []
+            "prompts" : ["What words would you use to describe the challenges you face in life?", 
+            "What words would you use to describe your life in comparison to others'?", 
+            "What words would you use to describe how you grew up?"],
+            "banks" : ["privileged", "lucky", "grateful", "difficult", "impossible", "unfair", "exciting", "better", "worse", "upsetting", "easy"]
         },
         "conditioning" : {
-            "actions" : ["A1", "A2", "A3"],
-            "frequency" : []
+            "actions" : ["I consider how my life compares to others around me.", 
+            "I try to not get stressed out over small things in life.", 
+            "I try to be in control of everything in my life."],
+            "frequency" : ["Never", "Rarely", "Sometimes", "Often", "Always"]
         }
+    },
+
+    "advice" : {
+        "self" : "Test123",
+        "meaning" : "Test123",
+        "perspective" : "Test123",
+        "social" : "Test123"
     }
 }
