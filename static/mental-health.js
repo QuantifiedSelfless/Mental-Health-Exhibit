@@ -9,6 +9,7 @@ var roundOver = false;
 var thePlayer;
 var currQ;
 var myDisplay;
+var qCount;
 
 function preload() {
     game_data = loadJSON("questions.json");
@@ -39,13 +40,11 @@ function gameUpdate() {
         roundOver = true;
 
     } else if (myGame.phase == 1) {
-
-    }
-
+        thePlayer.findMin();
+    } 
     if (roundOver == true) {
         myGame.startRound();
     }
-
     background(bg_image);
     myGame.update();
     myGame.display();
@@ -57,12 +56,35 @@ var Player = function () {
     this.selfy = 0;
     this.meaning = 0;
     this.perspec = 0;
-    this.problem;
+    this.problem = null;
+    this.r2;
+
+
+    this.responses = {
+        openR: [],
+        words: [[],[],[]],
+        conditioning: []
+    };
 
     this.findMin = function() {
-        return min(this.social, this.selfy, this.meaning, this.perspec);
+        min = 99;
+        if (this.social < min) {
+            this.problem = 'social';
+            min = this.social;
+        }
+        if (this.selfy < min) {
+            this.problem = 'self';
+            min = this.selfy;
+        }
+        if (this.meaning < min) {
+            this.problem = 'meaning';
+            min = this.meaning;
+        }
+        if (this.perspec < min) {
+            this.problem = 'perspective';
+            min = this.perspective;
+        }
     }
-
 
 };
 //Integrates player info into game and has update functions for the different on-screen elements
@@ -89,7 +111,6 @@ var Game = function (displayer, status) {
         this.myStatus.display();
         this.myInput.display();
 
-
     },
 
     this.startGame = function () {
@@ -97,6 +118,7 @@ var Game = function (displayer, status) {
         this.phase = 0;
         this.myInput = new InputBox();
         this.myInput.generate();
+        roundOver = false;
     }
 
     this.startRound = function () {
@@ -104,6 +126,13 @@ var Game = function (displayer, status) {
         this.phase++;
         this.myInput = new InputBox();
         this.myInput.generate();
+        roundOver = false;
+    },
+
+    this.resetInputs = function () {
+        qCount++;
+        this.myInput.generate();
+        this.myInput.update();
     }
 
 };
@@ -126,6 +155,31 @@ var DisplayBox = function () {
             this.questions = game_data.generalqs_r1;
             shuffle(this.questions);
             this.nextQ();
+        } else if (myGame.phase == 2) {
+            switch (thePlayer.problem) {
+                case 'social':
+                    thePlayer.r2 = game_data.socialqs_r2;
+                    this.questions = thePlayer.r2.open_response;
+                    break;
+                case 'self':
+                    thePlayer.r2 = game_data.selfqs_r2;
+                    this.questions = thePlayer.r2.open_response;
+                    break;
+                case 'perspective':
+                    thePlayer.r2 = game_data.meaningqs_r2;
+                    this.questions = thePlayer.r2.open_response;
+                    break;
+                case 'meaning':
+                    thePlayer.r2 = game_data.perspectiveqs_r2;
+                    this.questions = thePlayer.r2.open_response;
+                    break;
+            }
+            shuffle(this.questions);
+            this.nextQ();
+        } else if (myGame.phase == 3) {
+            this.questions = thePlayer.r2.word_association.prompts;
+            shuffle(this.questions);
+            this.nextQ();
         }
 
     },
@@ -134,9 +188,15 @@ var DisplayBox = function () {
         if (this.questions.length > 0) {
             qu = this.questions.pop();
             currQ = qu;
-            this.myText = qu.question;
+            if (myGame.phase == 1){
+                this.myText = qu.question;
+            } else if (myGame.phase == 2 || myGame.phase == 3 || myGame.phase == 4) {
+                this.myText = qu;
+            }
             this.display();
+            enterYet = false;
         } else {
+            roundOver = true;
             gameUpdate();
         }
 
@@ -167,6 +227,7 @@ var InputBox = function () {
     this.high = windowHeight*.25;
     this.valDiv;
     inputStuff = this;
+    qCount = 0;
 
     this.generate = function () {
 
@@ -202,13 +263,40 @@ var InputBox = function () {
                 counter++;
             }
         } else if (myGame.phase == 2) {
+            //Open Responses
             this.myElem = createElement('textarea');
             this.myElem.position(this.X+this.wide*.1, this.Y+this.high*.1);
             this.myElem.id('inputter');
             this.myElem.style('width', "65%");
             this.myElem.style('height', "15%");
             this.myElem.show();
+        } else if (myGame.phase == 3) {
+            console.log('made it to word stuff');
+            wacs = thePlayer.r2.word_association.banks;
+            myDiv = createDiv('');
+            myDiv.addClass('flex flex-wrap');
+            myDiv.style("width", "60%");
+            myDiv.style('height', "15%");
+            myDiv.position(this.X + this.wide*.05, this.Y + this.high*.2);
+            for (var word=0; word<wacs.length; word++) {
+                thisWord = wacs[word];
+                but = createButton(thisWord);
+                but.addClass('btn blue px2 flex-auto');
+                but.value(thisWord);
+                but.mousePressed(this.selectWord);
+                myDiv.child(but);
+            }
+        } else if (myGame.phase == 4) {
+            //Conditioning
         }
+    },
+
+    this.selectWord = function () {
+        console.log(qCount);
+        console.log(thePlayer.responses.words[qCount]);
+        thePlayer.responses.words[qCount].push(this.value());
+        this.style('color', 'red');
+        this.attribute('disabled', 'disabled')
     },
 
     this.nextOne = function () {
@@ -241,13 +329,6 @@ var InputBox = function () {
             fill('rgb(156, 212, 130)');
             rect(this.X, this.Y, this.wide, this.high);
             strokeWeight(2);
-            // fill(255);
-            // rect(this.X+25, this.Y+25, this.wide-45, this.high-45);
-            // fill(0);
-            // textFont("Georgia");
-            // textSize(26);
-            // textAlign(CENTER);
-            // text("Don't speak, I know just what you're feeling", this.X+35, this.Y+35, this.wide-35, this.high-35);
         pop();
         
     },
@@ -256,9 +337,9 @@ var InputBox = function () {
 
     }
 
-
 };
 
+//Status Box that tells you what phase you're on and the instructions for that phase
 var StatusBox = function () {
     this.X = 0;
     this.Y = windowHeight*.05;
@@ -266,6 +347,7 @@ var StatusBox = function () {
     this.high = windowHeight * .6;
     this.inst = "Hold on...";
 
+    //Updates the state of the Status Box for each round of the game
     this.update = function () {
         switch (myGame.phase) {
             case 0:
@@ -274,11 +356,20 @@ var StatusBox = function () {
             case 1:
                 this.inst = "Click the answer that best resprents your current feelings";
                 break;
-
+            case 2:
+                this.inst = "Type out your reflections on the question and press ENTER when you're done.";
+                break;
+            case 3:
+                this.inst = "Click all of the words you associate with the statement, press ENTER when you're done.";
+                break;
+            case 4:
+                this.inst = "Choose how often you are performing the described action in your everyday life.";
+                break;
         }
 
     },
 
+    //Displays the new status box for each round
     this.display = function () {
         push();
             strokeWeight(2);
@@ -303,10 +394,22 @@ var StatusBox = function () {
 
 };
 
+//Key press handler throughout the game
 function keyPressed() {
-    if (keyCode === ENTER && enterYet == false){
+    if (keyCode === ENTER && enterYet == false && myGame.phase == 0){
         inputData = document.getElementById('inputter').value;
         enterYet = true;
         gameUpdate();
+    } else if (keyCode === ENTER && enterYet == false && myGame.phase == 2) {
+        thePlayer.responses.openR.push(document.getElementById('inputter').value);
+        enterYet = true;
+        myGame.resetInputs();
+        myDisplay.nextQ();
+    } else if (keyCode === ENTER && enterYet == false && myGame.phase == 3) {
+        enterYet = true;
+        myGame.resetInputs();
+        myDisplay.nextQ();
+    } else if (keyCode === ENTER && myGame.phase == 4) {
+        //For the conditioned responses (if needed)
     }
 }
