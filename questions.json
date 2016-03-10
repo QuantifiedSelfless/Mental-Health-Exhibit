@@ -74,7 +74,7 @@
             }
         },
         {
-            "question" : "Do you feel your current behaviors aline with your values?",
+            "question" : "Do you feel your current behaviors align with your values?",
             "scores" : {
                 "social" : 0.1,
                 "self" : 0,
@@ -102,8 +102,9 @@
             "What do you feel when you're asked to take time out of your day for someone or something in your community."],
             "banks" : ["anger", "annoyance", "frustration", "empathy", "sympathy", "apathy", "concern", "sadness", "confusion", "condemnation", "anxiety", "enjoyment", "graciousness", "love", "hate", "impatience", "patience"]
         },
+        "advice": "test123",
         "conditioning" : {
-            "actions" : ["I try to put my self in the shoes of other people who are having troubeles.", 
+            "actions" : ["I try to put my self in the shoes of other people who are having troubles.", 
             "I share resources that I have earned with others in my community.", 
             "I make efforts to know how I can be a better member of my community."],
             "frequency" : ["Never", "Rarely", "Sometimes", "Often", "Always"]
@@ -121,6 +122,7 @@
             "What words would you associate with your future?"],
             "banks" : ["boredom", "confusion", "pride", "confidence", "doubt", "fear", "disappointment", "diligence", "excitement", "sad", "interesting", "sexy", "love", "hate", "anxiety"]
         },
+        "advice": "test123",
         "conditioning" : {
             "actions" : ["I take care of my body and mind.", 
             "I am proud of what I am doing.", 
@@ -139,6 +141,7 @@
             "What words would you use to describe the meaning of life?"],
             "banks" : ["concerned", "important", "love", "confused", "boredom", "greed", "amazing", "enjoyable", "terrible", "angry", "corrupt", "fun", "happiness", "comfort", "shitty", "nothing", "sharing"]
         },
+        "advice": "test123",
         "conditioning" : {
             "actions" : ["I take time to reflect on what I'm doing with my life.", 
             "I find my actions contribute to a greater good around me.", 
@@ -157,18 +160,12 @@
             "What words would you use to describe how you grew up?"],
             "banks" : ["privileged", "lucky", "grateful", "difficult", "impossible", "unfair", "exciting", "better", "worse", "upsetting", "easy"]
         },
+        "advice": "test123",
         "conditioning" : {
             "actions" : ["I consider how my life compares to others around me.", 
             "I try to not get stressed out over small things in life.", 
             "I try to be in control of everything in my life."],
             "frequency" : ["Never", "Rarely", "Sometimes", "Often", "Always"]
         }
-    },
-
-    "advice" : {
-        "self" : "Test123",
-        "meaning" : "Test123",
-        "perspective" : "Test123",
-        "social" : "Test123"
     }
 }

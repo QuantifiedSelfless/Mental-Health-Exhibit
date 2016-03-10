@@ -16,7 +16,13 @@ function preload() {
     game_data = loadJSON("questions.json");
     bg_image = loadImage("static/Shishapangma.jpg");
     imgDC = loadImage('static/Yellow-Tree-logo.png');
-    user_data = {};
+    //Eventually this should use the URL param to make an AJAX call
+    user_data = {
+        quotes: ["I seriously love Kanye's new album, made my day!",
+        "Today was the worst day ever.",
+        "I miss you too girl!",
+        "I'm so sad about how shitty America can be #Flint"]
+    };
 }
 
 function setup() {
@@ -25,7 +31,7 @@ function setup() {
     myDisplay = new DisplayBox();
     myStatus = new StatusBox();
     myGame = new Game(myDisplay, myStatus);
-    thePlayer = new Player();
+    thePlayer = new Player(user_data);
     myGame.startGame();
     background(bg_image);
     myGame.update();
@@ -44,6 +50,10 @@ function gameUpdate() {
     } else if (myGame.phase == 1) {
         thePlayer.findMin();
     } 
+    if (myGame.phase == 4) {
+        //This can eventually be used to analyze the player's data, if needed
+        //thePlayer.processData();
+    }
     if (roundOver == true) {
         myGame.startRound();
     }
@@ -53,7 +63,7 @@ function gameUpdate() {
 }
 
 //Eventually this should take user data
-var Player = function () {
+var Player = function (mydata) {
     this.happy = 0;
     this.social = 0;
     this.selfy = 0;
@@ -62,6 +72,7 @@ var Player = function () {
     this.problem = null;
     this.r2;
 
+    this.pdata = mydata;
 
     this.responses = {
         openR: [],
@@ -187,6 +198,10 @@ var DisplayBox = function () {
             this.questions = thePlayer.r2.conditioning.actions;
             shuffle(this.questions);
             this.nextQ();
+        } else if (myGame.phase == 5) {
+            this.questions = thePlayer.pdata.quotes;
+            shuffle(this.questions);
+            this.nextQ();
         }
 
     },
@@ -199,6 +214,9 @@ var DisplayBox = function () {
                 this.myText = qu.question;
             } else if (myGame.phase == 2 || myGame.phase == 3 || myGame.phase == 4) {
                 this.myText = qu;
+            } else if (myGame.phase == 5) {
+                this.myText = "Do you remember when you said this? \n\n\"" + qu + "\"";
+                console.log(this.myText);
             }
             this.display();
             enterYet = false;
@@ -307,7 +325,7 @@ var InputBox = function () {
                 myDiv.child(but);
                 counter++;
             }
-        }
+        } 
     },
 
     this.selectWord = function () {
@@ -354,11 +372,15 @@ var InputBox = function () {
             rect(this.X, this.Y, this.wide, this.high);
             strokeWeight(2);
         pop();
+        if (myGame.phase == 5){
+            push();
+                fill(0);
+                textFont("Georgia");
+                textSize(20);
+                text("Don't speak, we know just what you're feeling... Press spacebar and keep reflecting", this.X + this.wide*.1, this.Y + this.high*.5);
+            pop();
+        }
         
-    },
-
-    this.callback = function () {
-
     }
 
 };
@@ -391,6 +413,9 @@ var StatusBox = function () {
                 break;
             case 5:
                 this.inst = "Take a moment to reflect on your own data, press spacebar to continue onto the next item.";
+                break;
+            case 6:
+                this.inst = "Internalize the advice and press ENTER to complete your therapy.";
                 break;
         }
 
@@ -436,7 +461,8 @@ function keyPressed() {
         enterYet = true;
         myGame.resetInputs();
         myDisplay.nextQ();
-    } else if (keyCode === ENTER && myGame.phase == 4) {
-        //For the conditioned responses (if needed)
+    } else if (myGame.phase == 5 && key == ' ') {
+        myDisplay.nextQ();
+        return false;
     }
 }
