@@ -49,10 +49,11 @@ function gameUpdate() {
 
     } else if (myGame.phase == 1) {
         thePlayer.findMin();
-    } 
-    if (myGame.phase == 4) {
+    } else if (myGame.phase == 4) {
         //This can eventually be used to analyze the player's data, if needed
         //thePlayer.processData();
+    } else if (myGame.phase == 6) {
+        myGame.startOver();
     }
     if (roundOver == true) {
         myGame.startRound();
@@ -147,6 +148,10 @@ var Game = function (displayer, status) {
         qCount++;
         this.myInput.generate();
         this.myInput.update();
+    },
+
+    this.startOver = function () {
+        this.phase = 0;
     }
 
 };
@@ -202,7 +207,22 @@ var DisplayBox = function () {
             this.questions = thePlayer.pdata.quotes;
             shuffle(this.questions);
             this.nextQ();
+        } else if (myGame.phase == 6) {
+            this.questions = thePlayer.r2.advice;
+            this.adviser();
         }
+
+    },
+
+    this.adviser = function () {
+        if (this.questions.length > 0){
+            this.myText = "OUR ANALYSIS SAYS: \n\n" + this.questions;
+            this.display();
+        } else {
+            roundOver = true;
+            gameUpdate();
+        }
+
 
     },
 
@@ -216,7 +236,8 @@ var DisplayBox = function () {
                 this.myText = qu;
             } else if (myGame.phase == 5) {
                 this.myText = "Do you remember when you said this? \n\n\"" + qu + "\"";
-                console.log(this.myText);
+            } else if (myGame.phase == 6) {
+
             }
             this.display();
             enterYet = false;
@@ -296,7 +317,6 @@ var InputBox = function () {
             this.myElem.style('height', "15%");
             this.myElem.show();
         } else if (myGame.phase == 3) {
-            console.log('made it to word stuff');
             wacs = thePlayer.r2.word_association.banks;
             myDiv = createDiv('');
             myDiv.addClass('flex flex-wrap');
@@ -329,8 +349,7 @@ var InputBox = function () {
     },
 
     this.selectWord = function () {
-        console.log(qCount);
-        console.log(thePlayer.responses.words[qCount]);
+
         thePlayer.responses.words[qCount].push(this.value());
         this.style('color', 'red');
         this.attribute('disabled', 'disabled')
