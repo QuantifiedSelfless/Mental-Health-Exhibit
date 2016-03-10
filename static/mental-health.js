@@ -10,11 +10,13 @@ var thePlayer;
 var currQ;
 var myDisplay;
 var qCount;
+var user_data;
 
 function preload() {
     game_data = loadJSON("questions.json");
     bg_image = loadImage("static/Shishapangma.jpg");
     imgDC = loadImage('static/Yellow-Tree-logo.png');
+    user_data = {};
 }
 
 function setup() {
@@ -50,6 +52,7 @@ function gameUpdate() {
     myGame.display();
 }
 
+//Eventually this should take user data
 var Player = function () {
     this.happy = 0;
     this.social = 0;
@@ -180,6 +183,10 @@ var DisplayBox = function () {
             this.questions = thePlayer.r2.word_association.prompts;
             shuffle(this.questions);
             this.nextQ();
+        } else if (myGame.phase == 4) {
+            this.questions = thePlayer.r2.conditioning.actions;
+            shuffle(this.questions);
+            this.nextQ();
         }
 
     },
@@ -287,7 +294,19 @@ var InputBox = function () {
                 myDiv.child(but);
             }
         } else if (myGame.phase == 4) {
-            //Conditioning
+            counter = 1;
+            fre = thePlayer.r2.conditioning.frequency;
+            myDiv = createDiv('');
+            myDiv.addClass('flex');
+            myDiv.position(this.X + this.wide*.25, this.Y + this.high*.4);
+            for (var res=0; res<fre.length; res++) {
+                but = createButton(fre[res]);
+                but.addClass('btn blue px3 flex-auto');
+                but.value(fre[res]);
+                but.mousePressed(this.valSelect);
+                myDiv.child(but);
+                counter++;
+            }
         }
     },
 
@@ -297,6 +316,11 @@ var InputBox = function () {
         thePlayer.responses.words[qCount].push(this.value());
         this.style('color', 'red');
         this.attribute('disabled', 'disabled')
+    },
+
+    this.valSelect = function () {
+        thePlayer.responses.conditioning.push(this.value());
+        myDisplay.nextQ();
     },
 
     this.nextOne = function () {
@@ -360,10 +384,13 @@ var StatusBox = function () {
                 this.inst = "Type out your reflections on the question and press ENTER when you're done.";
                 break;
             case 3:
-                this.inst = "Click all of the words you associate with the statement, press ENTER when you're done.";
+                this.inst = "Click all of the words you associate with the statement, the press ENTER.";
                 break;
             case 4:
-                this.inst = "Choose how often you are performing the described action in your everyday life.";
+                this.inst = "Click the option that describes how often you perform the action in your everyday life.";
+                break;
+            case 5:
+                this.inst = "Take a moment to reflect on your own data, press spacebar to continue onto the next item.";
                 break;
         }
 
