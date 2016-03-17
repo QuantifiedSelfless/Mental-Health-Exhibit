@@ -1,0 +1,171 @@
+{
+    "baseline" : { "question" : "Considering all features of your life, how happy would you say you are?"},
+    "generalqs_r1" : [
+        { 
+            "question" : "Do you find yourself thinking about your own expiration?",
+            "scores" : {
+                "social" : -0.1,
+                "self" : 0,
+                "meaning" : -0.2,
+                "perspective" : -0.2
+            }
+        },
+        {
+            "question" : "Are your sleep patterns anomolous due to life stresses?",
+            "scores" : {
+                "social" : -0.1,
+                "self" : -0.2,
+                "meaning" : 0,
+                "perspective" : -0.3
+            }
+        },
+        {
+            "question" : "Do you feel qualified to make important decisions in your life?", 
+            "scores" : {
+                "social" : 0.1,
+                "self" : 0.3,
+                "meaning" : 0.1,
+                "perspective" : 0.1
+            }
+        },
+        {
+            "question" : "Are your DesignCraft vital readings constantly displaying 'strained'?",
+            "scores" : {
+                "social" : -0.1,
+                "self" : -0.3,
+                "meaning" : 0,
+                "perspective" : -0.2
+            }
+        },
+        {
+            "question" : "Are you able to enjoy your normal day-to-day activities?",
+            "scores" : {
+                "social" : 0.2,
+                "self" : 0,
+                "meaning" : 0.3,
+                "perspective" : 0.1
+            }
+        },  
+        {
+            "question" : "Are you in control of your cognition and are able to concentrate?",
+            "scores" : {
+                "social" : 0.1,
+                "self" : 0.4,
+                "meaning" : 0.1,
+                "perspective" : 0.2
+            }
+        }, 
+        {
+            "question" : "Do you experience 'happiness' in your relationships with others?",
+            "scores" : {
+                "social" : 0.5,
+                "self" : 0.3,
+                "meaning" : -0.2,
+                "perspective" : 0
+            }
+        },
+        {
+            "question" : "Do you experience 'purpose' in the world?",
+            "scores" : {
+                "social" : 0.2,
+                "self" : 0,
+                "meaning" : 0.4,
+                "perspective" : 0.1
+            }
+        },
+        {
+            "question" : "Do you feel your current behaviors align with your 'values'?",
+            "scores" : {
+                "social" : 0.1,
+                "self" : 0,
+                "meaning" : 0.2,
+                "perspective" : -0.1
+            }
+        }
+    ],
+
+    "responses_r1" : [
+        { "response" : "Not at All", "score": -2 },
+        { "response" : "Less than usual", "score": -1 },
+        { "response" : "No more than usual", "score": 0 },
+        { "response" : "More than usual", "score": 1 },
+        { "response" : "Most Definitely", "score": 2 }
+    ],
+
+    "socialqs_r2" : {
+        "open_response" : ["Take a moment to reflect on your current relationships. What are the best and worst things you've done to another person recently? Write them out.", 
+        "Choose one social interaction that you felt went poorly. What could you have done differently to improve it?",
+        "When you think about who you are and what you want to be in life, who's perspective do you see yourself through? Whose respect really matters to you?"],
+        "word_association" : {
+            "prompts" : ["What do you feel when a friend or loved one criticizes you?", 
+            "What do you feel when a friend or loved one asks you to make a sacrifice for them?",
+            "What do you feel when you're asked to take time out of your day for someone or something in your community."],
+            "banks" : ["anger", "annoyance", "frustration", "empathy", "sympathy", "apathy", "concern", "sadness", "confusion", "condemnation", "anxiety", "enjoyment", "graciousness", "love", "hate", "impatience", "patience"]
+        },
+        "advice": "test123",
+        "conditioning" : {
+            "actions" : ["I try to put myself in the shoes of other people who are having troubles.", 
+            "I share resources that I have earned with others in my community.", 
+            "I make efforts to know how I can be a better member of my community."],
+            "frequency" : ["Never", "Rarely", "Sometimes", "Often", "Always"]
+        }
+    },
+
+
+    "selfqs_r2" : {
+        "open_response" : ["Think about your job. Are you happy with how your work effects the world?", 
+        "Consider your everyday life. What habits do you have that you wish you could terminate?", 
+        "When you try to make a change in life, what barriers do you believe you face?"],
+        "word_association" : {
+            "prompts" : ["What words would you associate with your job (if you're a student, with school)?", 
+            "What words would you associate with yourself as a person?", 
+            "What words would you associate with your future?"],
+            "banks" : ["boredom", "confusion", "pride", "confidence", "doubt", "fear", "disappointment", "diligence", "excitement", "sad", "interesting", "sexy", "love", "hate", "anxiety"]
+        },
+        "advice": "test123",
+        "conditioning" : {
+            "actions" : ["I take care of my physical and mental state.", 
+            "I am proud of what I am doing.", 
+            "I put in extra effort to become a better person."],
+            "frequency" : ["Never", "Rarely", "Sometimes", "Often", "Always"]
+        }
+    },
+
+    "meaningqs_r2" : {
+        "open_response" : ["Consider your current life situation. What do you see yourself working toward?", 
+        "Think about when you feel most proud of yourself. Describe what are you doing.", 
+        "What's the most important thing for you? Are you doing it?"],
+        "word_association" : {
+            "prompts" : ["If you were going to expire today, what words would you use describe your life?", 
+            "What words best describe how you feel about the world?", 
+            "What words would you use to describe the meaning of life?"],
+            "banks" : ["concerned", "important", "love", "confused", "boredom", "greed", "amazing", "enjoyable", "terrible", "angry", "corrupt", "fun", "happiness", "comfort", "shitty", "nothing", "sharing"]
+        },
+        "advice": "test123",
+        "conditioning" : {
+            "actions" : ["I take time to reflect on what I'm doing with my life.", 
+            "I find my actions contribute to a greater good around me.", 
+            "I make time to do the things I love."],
+            "frequency" : ["Never", "Rarely", "Sometimes", "Often", "Always"]
+        }
+    },
+
+    "perspectiveqs_r2" : {
+        "open_response" : ["What about your life makes you feel advantaged?", 
+        "What is the hardest life-obstacle you've ever had to overcome?", 
+        "What are your biggest stressors on a daily basis? How difficult would it be to remove them?"],
+        "word_association" : {
+            "prompts" : ["What words would you use to describe the challenges you face in life?", 
+            "What words would you use to describe your life in comparison to others'?", 
+            "What words would you use to describe the conditions of your developement?"],
+            "banks" : ["privileged", "lucky", "grateful", "difficult", "impossible", "unfair", "exciting", "better", "worse", "upsetting", "easy"]
+        },
+        "advice": "test123",
+        "conditioning" : {
+            "actions" : ["I measure my life against others around me.", 
+            "I try not to experience stress over small things in life.", 
+            "I try to be in control of everything in my life."],
+            "frequency" : ["Never", "Rarely", "Sometimes", "Often", "Always"]
+        }
+    }
+}
