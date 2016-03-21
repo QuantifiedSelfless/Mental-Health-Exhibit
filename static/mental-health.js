@@ -14,7 +14,7 @@ var user_data;
 
 function preload() {
     game_data = loadJSON("questions.json");
-    bg_image = loadImage("static/Shishapangma.jpg");
+    bg_image = loadImage("static/bg.png");
     imgDC = loadImage('static/Yellow-Tree-logo.png');
     //Eventually this should use the URL param to make an AJAX call
     user_data = {
