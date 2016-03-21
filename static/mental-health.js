@@ -250,10 +250,11 @@ var DisplayBox = function () {
 
     this.display = function () {
         push();
+			//Question Text//
             stroke('#333030');
             strokeWeight(8);
             fill('#37483e');
-            rect(this.X, this.Y, this.wide, this.high);
+            //rect(this.X, this.Y, this.wide, this.high);
             strokeWeight(2);
             fill(255);
             textFont("Georgia");
@@ -385,10 +386,11 @@ var InputBox = function () {
 
     this.display = function () {
         push();
+			//Answer box may go unused,) Reflection text//
             stroke('#333030');
             strokeWeight(8);
             fill('rgb(156, 212, 130)');
-            rect(this.X, this.Y, this.wide, this.high);
+            //rect(this.X, this.Y, this.wide, this.high);
             strokeWeight(2);
         pop();
         if (myGame.phase == 5){
@@ -443,9 +445,10 @@ var StatusBox = function () {
     //Displays the new status box for each round
     this.display = function () {
         push();
+			//Instruction Text//
             strokeWeight(2);
             fill('#333030');
-            rect(this.X, this.Y, this.wide, this.high);
+            //rect(this.X, this.Y, this.wide, this.high);
             image(imgDC, this.X+this.wide*.05, this.Y+this.high*.05, this.wide*.4, this.high*.2);
             fill(255);
             strokeWeight(1);
