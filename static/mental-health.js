@@ -159,8 +159,8 @@ var Game = function (displayer, status) {
 var DisplayBox = function () {
 
     this.X = windowWidth*.25;
-    this.Y = windowHeight*.1;
-    this.wide = windowWidth*.6; 
+    this.Y = 0;
+    this.wide = windowWidth*.75; 
     this.high = windowHeight*.55;
     this.questions;
 
@@ -254,7 +254,7 @@ var DisplayBox = function () {
             stroke('#333030');
             strokeWeight(8);
             fill('#37483e');
-            //rect(this.X, this.Y, this.wide, this.high);
+            rect(this.X, this.Y, this.wide, this.high);
             strokeWeight(2);
             fill(255);
             textFont("Georgia");
@@ -268,16 +268,16 @@ var DisplayBox = function () {
 
 var InputBox = function () {
     this.myElem;
-    this.X = windowWidth*.20;
+    this.X = windowWidth*.2;
     this.Y = windowHeight*.7;
-    this.wide = windowWidth*.7; 
+    this.wide = windowWidth*.6; 
     this.high = windowHeight*.25;
     this.valDiv;
     inputStuff = this;
     qCount = 0;
 
     this.generate = function () {
-
+		//This is where the game's phases are defined, there are things to move here.//
         removeElements();
         if (myGame.phase == 0) {
             this.myElem = createElement('input');
@@ -287,7 +287,7 @@ var InputBox = function () {
             this.myElem.attribute("step", 1);
             this.myElem.id('inputter');
             this.myElem.changed(this.newVal);
-            this.myElem.position(this.X+(this.wide*.08), this.Y+this.high*.4);
+            this.myElem.position(this.X+this.high*.06, this.Y+this.high*.4);
             this.myElem.style('width', "60%");
 
             this.valDiv = createDiv();
@@ -390,7 +390,7 @@ var InputBox = function () {
             stroke('#333030');
             strokeWeight(8);
             fill('rgb(156, 212, 130)');
-            //rect(this.X, this.Y, this.wide, this.high);
+            rect(this.X, this.Y, this.wide, this.high);
             strokeWeight(2);
         pop();
         if (myGame.phase == 5){
