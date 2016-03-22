@@ -261,8 +261,7 @@ var DisplayBox = function () {
             textFont("Georgia");
             textSize(26);
             textAlign(CENTER);
-			//TODO: Position question text above input box
-            text(this.myText, this.X+35, this.Y+35, this.wide-35, this.high-35);
+            text(this.myText, this.X, this.Y+windowHeight*.55, this.wide, this.high-35);
         pop();
     }
 
