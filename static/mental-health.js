@@ -158,10 +158,11 @@ var Game = function (displayer, status) {
 
 var DisplayBox = function () {
 
-    this.X = windowWidth*.25;
+	this.wide = windowWidth*.85; 
+    this.high = windowHeight*.8;
+	this.X = (windowWidth - this.wide) / 2; 
     this.Y = 0;
-    this.wide = windowWidth*.75; 
-    this.high = windowHeight*.55;
+
     this.questions;
 
     this.myText = "Hold on just a moment...";
@@ -251,15 +252,16 @@ var DisplayBox = function () {
     this.display = function () {
         push();
 			//Question Text//
-            stroke('#333030');
-            strokeWeight(8);
-            fill('#37483e');
+            stroke(255);
+            strokeWeight(2);
+            fill(0);
             rect(this.X, this.Y, this.wide, this.high);
             strokeWeight(2);
             fill(255);
             textFont("Georgia");
             textSize(26);
             textAlign(CENTER);
+			//TODO: Position question text above input box
             text(this.myText, this.X+35, this.Y+35, this.wide-35, this.high-35);
         pop();
     }
@@ -268,10 +270,10 @@ var DisplayBox = function () {
 
 var InputBox = function () {
     this.myElem;
-    this.X = windowWidth*.2;
-    this.Y = windowHeight*.7;
     this.wide = windowWidth*.6; 
     this.high = windowHeight*.25;
+    this.Y = windowHeight*.55;
+    this.X = (windowWidth - this.wide) / 2;
     this.valDiv;
     inputStuff = this;
     qCount = 0;
@@ -289,11 +291,13 @@ var InputBox = function () {
             this.myElem.changed(this.newVal);
             this.myElem.position(this.X+this.high*.06, this.Y+this.high*.4);
             this.myElem.style('width', "60%");
-
+			
             this.valDiv = createDiv();
             this.valDiv.addClass('phase');
-            this.valDiv.position(this.X+(this.wide*.4), this.Y+this.high*.6)
-            this.valDiv.html("Current Value is: " + document.getElementById('inputter').value);
+			this.valDiv.style('font-size', "32px");
+			this.valDiv.style('color', "white");
+            this.valDiv.position(this.X+(this.wide*.5), this.Y+this.high*.6)
+            this.valDiv.html(document.getElementById('inputter').value);
 
         } else if (myGame.phase == 1) {
             counter = 1;
@@ -390,7 +394,7 @@ var InputBox = function () {
             stroke('#333030');
             strokeWeight(8);
             fill('rgb(156, 212, 130)');
-            rect(this.X, this.Y, this.wide, this.high);
+            //rect(this.X, this.Y, this.wide, this.high);
             strokeWeight(2);
         pop();
         if (myGame.phase == 5){
@@ -455,9 +459,9 @@ var StatusBox = function () {
             textFont("Georgia");
             textSize(20);
             textAlign(RIGHT);
-            text("Phase:", this.wide*.85, this.Y+this.high*.2);
+            //text("Phase:", this.wide*.85, this.Y+this.high*.2);
             textSize(24);
-            text(myGame.phase, this.wide*.8, this.Y+this.high*.3);
+            //text(myGame.phase, this.wide*.8, this.Y+this.high*.3);
             textSize(20);
             text("Instructions:", this.wide*.85, this.Y+this.high*.4);
             textAlign(RIGHT);
