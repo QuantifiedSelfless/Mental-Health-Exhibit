@@ -256,12 +256,14 @@ var DisplayBox = function () {
             strokeWeight(2);
             fill(0);
             rect(this.X, this.Y, this.wide, this.high);
+			noFill();
+			rect((windowWidth - this.wide*.8)/2, this.Y+10, this.wide*.8, this.high*.7);
             strokeWeight(0.5);
             fill(255);
             textFont("Georgia");
             textSize(26);
             textAlign(CENTER);
-            text(this.myText, this.X, this.Y+windowHeight*.55, this.wide, this.high-35);
+            text(this.myText, this.X, this.Y+windowHeight*.63, this.wide, this.high-35);
         pop();
     }
 
@@ -271,7 +273,7 @@ var InputBox = function () {
     this.myElem;
     this.wide = windowWidth*.6; 
     this.high = windowHeight*.25;
-    this.Y = windowHeight*.55;
+    this.Y = windowHeight*.57;
     this.X = (windowWidth - this.wide) / 2;
     this.valDiv;
     inputStuff = this;
@@ -288,7 +290,7 @@ var InputBox = function () {
             this.myElem.attribute("step", 1);
             this.myElem.id('inputter');
             this.myElem.changed(this.newVal);
-            this.myElem.position(this.X+this.high*.06, this.Y+this.high*.4);
+            this.myElem.position(this.X+this.high*.06, this.Y+this.high*.5);
             this.myElem.style('width', "60%");
 			
             this.valDiv = createDiv();
