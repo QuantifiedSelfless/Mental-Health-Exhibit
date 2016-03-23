@@ -256,7 +256,7 @@ var DisplayBox = function () {
             strokeWeight(2);
             fill(0);
             rect(this.X, this.Y, this.wide, this.high);
-            strokeWeight(2);
+            strokeWeight(0.5);
             fill(255);
             textFont("Georgia");
             textSize(26);
@@ -376,7 +376,7 @@ var InputBox = function () {
     }
 
     this.newVal = function () {
-        inputStuff.valDiv.html("Current Value is: " + document.getElementById('inputter').value);
+        inputStuff.valDiv.html(document.getElementById('inputter').value);
     }
 
     this.update = function () {
@@ -411,10 +411,11 @@ var InputBox = function () {
 
 //Status Box that tells you what phase you're on and the instructions for that phase
 var StatusBox = function () {
-    this.X = 0;
-    this.Y = windowHeight*.05;
-    this.wide = windowWidth *.15;
+
+    this.wide = windowWidth*.9;
     this.high = windowHeight * .6;
+    this.Y = windowHeight*.87;
+    this.X = (windowWidth - this.wide) / 2;
     this.inst = "Hold on...";
 
     //Updates the state of the Status Box for each round of the game
@@ -452,19 +453,19 @@ var StatusBox = function () {
             strokeWeight(2);
             fill('#333030');
             //rect(this.X, this.Y, this.wide, this.high);
-            image(imgDC, this.X+this.wide*.05, this.Y+this.high*.05, this.wide*.4, this.high*.2);
+            //image(imgDC, this.X+this.wide*.05, this.Y+this.high*.05, this.wide*.4, this.high*.2);
             fill(255);
             strokeWeight(1);
             textFont("Georgia");
             textSize(20);
-            textAlign(RIGHT);
+            //textAlign(RIGHT);
             //text("Phase:", this.wide*.85, this.Y+this.high*.2);
             textSize(24);
             //text(myGame.phase, this.wide*.8, this.Y+this.high*.3);
-            textSize(20);
-            text("Instructions:", this.wide*.85, this.Y+this.high*.4);
-            textAlign(RIGHT);
-            text(this.inst, this.wide*.10, this.Y+this.high*.5, this.wide*.75, this.Y+this.high*.95)
+            textSize(28);
+            //text("Instructions:", this.wide*.85, this.Y+this.high*.4);
+            textAlign(CENTER);
+            text(this.inst, this.X, this.Y, this.wide, this.high)
         pop();
         
     }
