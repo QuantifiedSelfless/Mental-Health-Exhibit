@@ -258,6 +258,7 @@ var DisplayBox = function () {
             rect(this.X, this.Y, this.wide, this.high);
 			noFill();
 			rect((windowWidth - this.wide*.8)/2, this.Y+10, this.wide*.8, this.high*.7);
+			//TODO: Place image for each round, change color of border for each round
             strokeWeight(0.5);
             fill(255);
             textFont("Georgia");
@@ -305,7 +306,7 @@ var InputBox = function () {
             gdr = game_data.responses_r1;
             myDiv = createDiv('');
             myDiv.addClass('flex');
-            myDiv.position(this.X + this.wide*.1, this.Y + this.high*.4);
+            myDiv.position(this.X + this.wide*.05, this.Y + this.high*.4);
             for (var res=0; res<gdr.length; res++) {
                 but = createButton(gdr[res].response);
                 but.addClass('btn blue px2 flex-auto');
