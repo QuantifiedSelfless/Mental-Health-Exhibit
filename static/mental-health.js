@@ -14,6 +14,9 @@ var user_data;
 
 function preload() {
     game_data = loadJSON("questions.json");
+	phase0 = loadImage("static/phase0.png");
+	phase1 = loadImage("static/phase1.jpg");
+	phase4 = loadImage("static/phase4.jpg");
     bg_image = loadImage("static/bg.png");
     imgDC = loadImage('static/Yellow-Tree-logo.png');
     //Eventually this should use the URL param to make an AJAX call
@@ -257,10 +260,22 @@ var DisplayBox = function () {
             fill(0);
             rect(this.X, this.Y, this.wide, this.high);
 			noFill();
+			if (myGame.phase == 0){
+				stroke('#91b4c7'); image(phase0, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+			}
+			else if (myGame.phase == 1) {
+				stroke('#91b4c7'); image(phase1, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+			}
+			else if (myGame.phase == 2) stroke('#91b4c7'); 	
+			else if (myGame.phase == 3) stroke('#91b4c7');
+			else if (myGame.phase == 4)  {
+				stroke('#91b4c7'); image(phase0, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+			}
 			rect((windowWidth - this.wide*.8)/2, this.Y+10, this.wide*.8, this.high*.7);
-			//TODO: Place image for each round, change color of border for each round
+			//TODO: Place image for each round
             strokeWeight(0.5);
             fill(255);
+			stroke(255);
             textFont("Georgia");
             textSize(26);
             textAlign(CENTER);
@@ -306,7 +321,7 @@ var InputBox = function () {
             gdr = game_data.responses_r1;
             myDiv = createDiv('');
             myDiv.addClass('flex');
-            myDiv.position(this.X + this.wide*.05, this.Y + this.high*.4);
+            myDiv.position(this.X + this.wide*.05, this.Y + this.high*.5);
             for (var res=0; res<gdr.length; res++) {
                 but = createButton(gdr[res].response);
                 but.addClass('btn blue px2 flex-auto');
@@ -318,10 +333,10 @@ var InputBox = function () {
         } else if (myGame.phase == 2) {
             //Open Responses
             this.myElem = createElement('textarea');
-            this.myElem.position(this.X+this.wide*.1, this.Y+this.high*.1);
+            this.myElem.position((windowWidth*.35) / 2, 20);
             this.myElem.id('inputter');
             this.myElem.style('width', "65%");
-            this.myElem.style('height', "15%");
+            this.myElem.style('height', "53%");
             this.myElem.show();
         } else if (myGame.phase == 3) {
             wacs = thePlayer.r2.word_association.banks;
@@ -329,7 +344,7 @@ var InputBox = function () {
             myDiv.addClass('flex flex-wrap');
             myDiv.style("width", "60%");
             myDiv.style('height', "15%");
-            myDiv.position(this.X + this.wide*.05, this.Y + this.high*.2);
+            myDiv.position(this.X, windowHeight*.4);
             for (var word=0; word<wacs.length; word++) {
                 thisWord = wacs[word];
                 but = createButton(thisWord);
@@ -343,7 +358,7 @@ var InputBox = function () {
             fre = thePlayer.r2.conditioning.frequency;
             myDiv = createDiv('');
             myDiv.addClass('flex');
-            myDiv.position(this.X + this.wide*.25, this.Y + this.high*.4);
+            myDiv.position(this.X + this.wide*.1, this.Y + this.high*.6);
             for (var res=0; res<fre.length; res++) {
                 but = createButton(fre[res]);
                 but.addClass('btn blue px3 flex-auto');
