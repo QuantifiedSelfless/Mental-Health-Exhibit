@@ -260,6 +260,7 @@ var DisplayBox = function () {
             fill(0);
             rect(this.X, this.Y, this.wide, this.high);
 			noFill();
+			//TODO: get images for phase 4 and results, pick border colors
 			if (myGame.phase == 0){
 				stroke('#91b4c7'); image(phase0, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
 			}
@@ -269,10 +270,15 @@ var DisplayBox = function () {
 			else if (myGame.phase == 2) stroke('#91b4c7'); 	
 			else if (myGame.phase == 3) stroke('#91b4c7');
 			else if (myGame.phase == 4)  {
-				stroke('#91b4c7'); image(phase0, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+				stroke('#91b4c7'); image(phase4, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+			}
+			else if (myGame.phase == 5)  {
+				stroke('#91b4c7'); image(phase4, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+			}
+			else if (myGame.phase == 6)  {
+				stroke('#91b4c7'); image(phase4, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
 			}
 			rect((windowWidth - this.wide*.8)/2, this.Y+10, this.wide*.8, this.high*.7);
-			//TODO: Place image for each round
             strokeWeight(0.5);
             fill(255);
 			stroke(255);
