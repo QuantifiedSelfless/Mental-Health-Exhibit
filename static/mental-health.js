@@ -256,13 +256,11 @@ var DisplayBox = function () {
 
     this.display = function () {
         push();
-			//Question Text//
             stroke(255);
             strokeWeight(2);
             fill(0);
             rect(this.X, this.Y, this.wide, this.high);
 			noFill();
-			//TODO: get images for phase 5 and results, pick border colors
 			if (myGame.phase == 0){
 				stroke('#a6c900'); image(phase0, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
 			}
@@ -304,7 +302,6 @@ var InputBox = function () {
     qCount = 0;
 
     this.generate = function () {
-		//This is where the game's phases are defined, there are things to move here.//
         removeElements();
         if (myGame.phase == 0) {
             this.myElem = createElement('input');
@@ -415,11 +412,9 @@ var InputBox = function () {
 
     this.display = function () {
         push();
-			//Answer box may go unused,) Reflection text//
             stroke('#333030');
             strokeWeight(8);
             fill('rgb(156, 212, 130)');
-            //rect(this.X, this.Y, this.wide, this.high);
             strokeWeight(2);
         pop();
         if (myGame.phase == 5){
@@ -475,21 +470,14 @@ var StatusBox = function () {
     //Displays the new status box for each round
     this.display = function () {
         push();
-			//Instruction Text//
             strokeWeight(2);
             fill('#333030');
-            //rect(this.X, this.Y, this.wide, this.high);
-            //image(imgDC, this.X+this.wide*.05, this.Y+this.high*.05, this.wide*.4, this.high*.2);
             fill(255);
             strokeWeight(1);
             textFont("Georgia");
             textSize(20);
-            //textAlign(RIGHT);
-            //text("Phase:", this.wide*.85, this.Y+this.high*.2);
             textSize(24);
-            //text(myGame.phase, this.wide*.8, this.Y+this.high*.3);
             textSize(28);
-            //text("Instructions:", this.wide*.85, this.Y+this.high*.4);
             textAlign(CENTER);
             text(this.inst, this.X, this.Y, this.wide, this.high)
         pop();
