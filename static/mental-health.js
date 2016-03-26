@@ -17,6 +17,8 @@ function preload() {
 	phase0 = loadImage("static/phase0.png");
 	phase1 = loadImage("static/phase1.jpg");
 	phase4 = loadImage("static/phase4.jpg");
+	phase5 = loadImage("static/phase5.jpg");
+	results = loadImage("static/results.jpg");
     bg_image = loadImage("static/bg.png");
     imgDC = loadImage('static/Yellow-Tree-logo.png');
     //Eventually this should use the URL param to make an AJAX call
@@ -260,23 +262,23 @@ var DisplayBox = function () {
             fill(0);
             rect(this.X, this.Y, this.wide, this.high);
 			noFill();
-			//TODO: get images for phase 4 and results, pick border colors
+			//TODO: get images for phase 5 and results, pick border colors
 			if (myGame.phase == 0){
-				stroke('#91b4c7'); image(phase0, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+				stroke('#a6c900'); image(phase0, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
 			}
 			else if (myGame.phase == 1) {
-				stroke('#91b4c7'); image(phase1, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+				stroke('#3f5b80'); image(phase1, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
 			}
-			else if (myGame.phase == 2) stroke('#91b4c7'); 	
-			else if (myGame.phase == 3) stroke('#91b4c7');
+			else if (myGame.phase == 2) stroke('#f2ff5f'); 	
+			else if (myGame.phase == 3) stroke('#ff5f7d');
 			else if (myGame.phase == 4)  {
-				stroke('#91b4c7'); image(phase4, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+				stroke('#7d7a8b'); image(phase4, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
 			}
 			else if (myGame.phase == 5)  {
-				stroke('#91b4c7'); image(phase4, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+				stroke('#739fc6'); image(phase5, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
 			}
 			else if (myGame.phase == 6)  {
-				stroke('#91b4c7'); image(phase4, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+				stroke('#ffffff'); image(results, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
 			}
 			rect((windowWidth - this.wide*.8)/2, this.Y+10, this.wide*.8, this.high*.7);
             strokeWeight(0.5);
