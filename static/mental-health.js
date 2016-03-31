@@ -1,3 +1,10 @@
+//TODO:
+/*
+Smaller text box, add banner, make instructions clear on text input round
+Centering issues
+Animation/Results for final screen
+*/
+
 var game_data;
 var bg_image;
 var inputData;
@@ -329,7 +336,8 @@ var InputBox = function () {
             myDiv.position(this.X + this.wide*.05, this.Y + this.high*.5);
             for (var res=0; res<gdr.length; res++) {
                 but = createButton(gdr[res].response);
-                but.addClass('btn blue px2 flex-auto');
+                but.addClass('btn px2 flex-auto');
+				but.style('color', "#7AD7FF");
                 but.value(gdr[res].score);
                 but.mousePressed(this.nextOne);
                 myDiv.child(but);
@@ -353,7 +361,8 @@ var InputBox = function () {
             for (var word=0; word<wacs.length; word++) {
                 thisWord = wacs[word];
                 but = createButton(thisWord);
-                but.addClass('btn blue px2 flex-auto');
+                but.addClass('btn px2 flex-auto');
+				but.style('color', "#7AD7FF");
                 but.value(thisWord);
                 but.mousePressed(this.selectWord);
                 myDiv.child(but);
@@ -366,7 +375,8 @@ var InputBox = function () {
             myDiv.position(this.X + this.wide*.1, this.Y + this.high*.6);
             for (var res=0; res<fre.length; res++) {
                 but = createButton(fre[res]);
-                but.addClass('btn blue px3 flex-auto');
+                but.addClass('btn px3 flex-auto');
+				but.style('color', "#7AD7FF");
                 but.value(fre[res]);
                 but.mousePressed(this.valSelect);
                 myDiv.child(but);
@@ -376,9 +386,9 @@ var InputBox = function () {
     },
 
     this.selectWord = function () {
-
+		//TODO: Add words to a wordcloud here.
         thePlayer.responses.words[qCount].push(this.value());
-        this.style('color', 'red');
+        this.style('color', '#ff5f7d');
         this.attribute('disabled', 'disabled')
     },
 
@@ -479,7 +489,8 @@ var StatusBox = function () {
             textSize(24);
             textSize(28);
             textAlign(CENTER);
-            text(this.inst, this.X, this.Y, this.wide, this.high)
+			text("Instructions:", this.X, this.Y-30, this.wide, this.high);
+            text(this.inst, this.X, this.Y, this.wide, this.high);
         pop();
         
     }
