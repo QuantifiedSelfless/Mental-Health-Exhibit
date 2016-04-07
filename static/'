@@ -1,6 +1,7 @@
 //TODO:
 /*
 Smaller text box, add banner, make instructions clear on text input round
+Centering issues
 Animation/Results for final screen
 */
 
@@ -273,8 +274,7 @@ var DisplayBox = function () {
 			else if (myGame.phase == 1) {
 				stroke('#3f5b80'); image(phase1, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
 			}
-
-			else if (myGame.phase == 2){ stroke('#f2ff5f'); fill(0); }	
+			else if (myGame.phase == 2) stroke('#f2ff5f'); 	
 			else if (myGame.phase == 3) stroke('#ff5f7d');
 			else if (myGame.phase == 4)  {
 				stroke('#7d7a8b'); image(phase4, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
@@ -286,9 +286,6 @@ var DisplayBox = function () {
 				stroke('#ffffff'); image(results, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
 			}
 			rect((windowWidth - this.wide*.8)/2, this.Y+10, this.wide*.8, this.high*.7);
-			if(myGame.phase == 2){
-			noStroke();fill(255); textSize(20); textAlign(CENTER); textFont("Georgia"); text("Please record your response in the text box below", windowWidth/2-150, 20, 300, 300);
-			}
             strokeWeight(0.5);
             fill(255);
 			stroke(255);
@@ -335,7 +332,9 @@ var InputBox = function () {
             counter = 1;
             gdr = game_data.responses_r1;
             myDiv = createDiv('');
-            myDiv.position((windowWidth/4), this.Y + this.high*.5);
+            myDiv.addClass('flex');
+            myDiv.position(windowWidth/2 + myDiv.width, this.Y + this.high*.5);
+			myDiv.style('margin', '0 auto');
             for (var res=0; res<gdr.length; res++) {
                 but = createButton(gdr[res].response);
                 but.addClass('btn px2 flex-auto');
@@ -348,10 +347,10 @@ var InputBox = function () {
         } else if (myGame.phase == 2) {
             //Open Responses
             this.myElem = createElement('textarea');
-            this.myElem.position((windowWidth*.35) / 2, this.Y-150);
+            this.myElem.position((windowWidth*.35) / 2, 20);
             this.myElem.id('inputter');
             this.myElem.style('width', "65%");
-            this.myElem.style('height', "20%");
+            this.myElem.style('height', "53%");
             this.myElem.show();
         } else if (myGame.phase == 3) {
             wacs = thePlayer.r2.word_association.banks;
@@ -374,8 +373,7 @@ var InputBox = function () {
             fre = thePlayer.r2.conditioning.frequency;
             myDiv = createDiv('');
             myDiv.addClass('flex');
-            //myDiv.position(this.X + this.wide*.25, this.Y + this.high*.6);
-            myDiv.position((windowWidth/4), this.Y + this.high*.5);
+            myDiv.position(this.X + this.wide*.25, this.Y + this.high*.6);
             for (var res=0; res<fre.length; res++) {
                 but = createButton(fre[res]);
                 but.addClass('btn px3 flex-auto');
@@ -419,7 +417,6 @@ var InputBox = function () {
 
         if (myGame.phase == 2) {
             document.getElementById("inputter").focus();
-
         }
 
     },
