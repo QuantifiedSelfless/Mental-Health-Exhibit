@@ -1,7 +1,7 @@
 //TODO:
 /*
-Smaller text box, add banner, make instructions clear on text input round
 Animation/Results for final screen
+Fix hard coded junk
 */
 
 var game_data;
@@ -348,7 +348,7 @@ var InputBox = function () {
         } else if (myGame.phase == 2) {
             //Open Responses
             this.myElem = createElement('textarea');
-            this.myElem.position((windowWidth*.35) / 2, this.Y-150);
+            this.myElem.position((windowWidth*.35) / 2, this.Y-250);
             this.myElem.id('inputter');
             this.myElem.style('width', "65%");
             this.myElem.style('height', "20%");
@@ -375,7 +375,7 @@ var InputBox = function () {
             myDiv = createDiv('');
             myDiv.addClass('flex');
             //myDiv.position(this.X + this.wide*.25, this.Y + this.high*.6);
-            myDiv.position((windowWidth/4), this.Y + this.high*.5);
+            myDiv.position((windowWidth/3), this.Y + this.high*.5);
             for (var res=0; res<fre.length; res++) {
                 but = createButton(fre[res]);
                 but.addClass('btn px3 flex-auto');
@@ -400,7 +400,7 @@ var InputBox = function () {
         thePlayer.responses.words[qCount].push(this.value());
 		textSize(56);
 		//TODO: These values should be relative
-		var randx = Math.random() * (800 -220) + 220;
+		var randx = Math.random() * (1000 -220) + 220;
 		var randy = Math.random() * (375 -50) + 50;
 		text(this.value(), randx, randy);
         this.style('color', '#ff5f7d');
