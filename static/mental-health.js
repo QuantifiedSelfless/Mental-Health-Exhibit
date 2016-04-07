@@ -387,10 +387,22 @@ var InputBox = function () {
             }
         } 
     },
+	/*
+	this.wide = windowWidth*.85; 
+    this.high = windowHeight*.8;
+	this.X = (windowWidth - this.wide) / 2; 
+    this.Y = 0;
+	rect((windowWidth - this.wide*.8)/2, this.Y+10, this.wide*.8, this.high*.7);
+*/
 
     this.selectWord = function () {
 		//TODO: Add words to a wordcloud here.
         thePlayer.responses.words[qCount].push(this.value());
+		textSize(56);
+		//TODO: These values should be relative
+		var randx = Math.random() * (800 -220) + 220;
+		var randy = Math.random() * (375 -50) + 50;
+		text(this.value(), randx, randy);
         this.style('color', '#ff5f7d');
         this.attribute('disabled', 'disabled')
     },
