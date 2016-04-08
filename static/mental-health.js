@@ -1,9 +1,18 @@
 //TODO:
 /*
-Animation/Results for final screen
-Fix hard coded junk
+Test on show monitor
+Color results bars
+Redirect on ENTER at results screen
+test/reposition phase 5 (long quotes)
 */
-
+var socialCounter = 0;
+var perspecCounter = 0;
+var meaningCounter = 0;
+var selfyCounter = 0;
+var socialTimer;
+var perspecTimer;
+var meaningTimer;
+var selfyTimer;
 var game_data;
 var bg_image;
 var inputData;
@@ -281,9 +290,30 @@ var DisplayBox = function () {
 			}
 			else if (myGame.phase == 5)  {
 				stroke('#739fc6'); image(phase5, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+
 			}
+			
 			else if (myGame.phase == 6)  {
-				stroke('#ffffff'); image(results, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+				// Adjust for show monitor
+				console.log(thePlayer.social + " " + thePlayer.selfy + " " + thePlayer.perspec + " " + thePlayer.meaning);
+				fill(255);
+				noStroke();
+				textSize(20);
+				text("Social ", windowWidth*.2, windowHeight*.15);
+				text("Perspective ", windowWidth*.2, windowHeight*.25);
+				text("Meaning ", windowWidth*.2, windowHeight*.35);
+				text("Self ", windowWidth*.2, windowHeight*.45);
+				noFill();
+				stroke(255);
+				rect(windowWidth*.3, windowHeight*.1, windowWidth*.5, 50);
+				rect(windowWidth*.3, windowHeight*.2, windowWidth*.5, 50);
+				rect(windowWidth*.3, windowHeight*.3, windowWidth*.5, 50);
+				rect(windowWidth*.3, windowHeight*.4, windowWidth*.5, 50);
+				rectMode(CORNER);
+				var socialTimer = setInterval( function() { inc_bar("social");}, 25);
+				var perspecTimer = setInterval( function() { inc_bar("perspec");}, 25);
+				var meaningTimer = setInterval( function() { inc_bar("meaning");}, 25);
+				var selfyTimer = setInterval( function() { inc_bar("selfy");}, 25);
 			}
 			rect((windowWidth - this.wide*.8)/2, this.Y+10, this.wide*.8, this.high*.7);
 			if(myGame.phase == 2){
@@ -300,6 +330,39 @@ var DisplayBox = function () {
     }
 
 };
+
+function inc_bar(barname){
+	fill(255);
+	noStroke();
+	if (barname == "social"){
+		if (socialCounter < thePlayer.social * 10){
+			socialCounter++;
+			rect(windowWidth*.3, windowHeight*.1, ((socialCounter * windowWidth*.5)/(100)), 50);
+		}
+		else clearInterval(socialTimer);
+	}
+	else if (barname == "perspec"){
+		if (perspecCounter < thePlayer.perspec * 10){
+			perspecCounter++;
+			rect(windowWidth*.3, windowHeight*.2, ((perspecCounter * windowWidth*.5)/(100)), 50);
+		}
+		else clearInterval(perspecTimer);
+	}
+	else if (barname == "meaning"){
+		if (meaningCounter < thePlayer.meaning * 10){
+			meaningCounter++;
+			rect(windowWidth*.3, windowHeight*.3, ((meaningCounter * windowWidth*.5)/(100)), 50);
+		}
+		else clearInterval(meaningTimer);
+	}
+	else if (barname == "selfy"){
+		if (selfyCounter < thePlayer.selfy * 10){
+			selfyCounter++;
+			rect(windowWidth*.3, windowHeight*.4, ((selfyCounter * windowWidth*.5)/(100)), 50);
+		}
+		else clearInterval(selfyTimer);
+	}
+}
 
 var InputBox = function () {
     this.myElem;
@@ -396,10 +459,8 @@ var InputBox = function () {
 */
 
     this.selectWord = function () {
-		//TODO: Add words to a wordcloud here.
         thePlayer.responses.words[qCount].push(this.value());
 		textSize(56);
-		//TODO: These values should be relative
 		var randx = Math.random() * (1000 -220) + 220;
 		var randy = Math.random() * (375 -50) + 50;
 		text(this.value(), randx, randy);
