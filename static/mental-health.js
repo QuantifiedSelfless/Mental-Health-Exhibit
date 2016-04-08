@@ -1,7 +1,6 @@
 //TODO:
 /*
 Test on show monitor
-Color results bars
 Redirect on ENTER at results screen
 test/reposition phase 5 (long quotes)
 */
@@ -294,22 +293,30 @@ var DisplayBox = function () {
 			}
 			
 			else if (myGame.phase == 6)  {
-				// Adjust for show monitor
+				//TODO: Adjust for show monitor
+				//		Color bars
 				console.log(thePlayer.social + " " + thePlayer.selfy + " " + thePlayer.perspec + " " + thePlayer.meaning);
-				fill(255);
 				noStroke();
 				textSize(20);
+				fill("#37B4DE");
 				text("Social ", windowWidth*.2, windowHeight*.15);
+				fill("#B537DE");
 				text("Perspective ", windowWidth*.2, windowHeight*.25);
+				fill("#DE6237");
 				text("Meaning ", windowWidth*.2, windowHeight*.35);
+				fill("#5FDE37");
 				text("Self ", windowWidth*.2, windowHeight*.45);
 				noFill();
-				stroke(255);
+				stroke("#37B4DE");
 				rect(windowWidth*.3, windowHeight*.1, windowWidth*.5, 50);
+				stroke("#B537DE");
 				rect(windowWidth*.3, windowHeight*.2, windowWidth*.5, 50);
+				stroke("#DE6237");
 				rect(windowWidth*.3, windowHeight*.3, windowWidth*.5, 50);
+				stroke("#5FDE37");
 				rect(windowWidth*.3, windowHeight*.4, windowWidth*.5, 50);
 				rectMode(CORNER);
+				stroke(255);
 				var socialTimer = setInterval( function() { inc_bar("social");}, 25);
 				var perspecTimer = setInterval( function() { inc_bar("perspec");}, 25);
 				var meaningTimer = setInterval( function() { inc_bar("meaning");}, 25);
@@ -336,6 +343,7 @@ function inc_bar(barname){
 	noStroke();
 	if (barname == "social"){
 		if (socialCounter < thePlayer.social * 10){
+			fill("#37B4DE");
 			socialCounter++;
 			rect(windowWidth*.3, windowHeight*.1, ((socialCounter * windowWidth*.5)/(100)), 50);
 		}
@@ -343,6 +351,7 @@ function inc_bar(barname){
 	}
 	else if (barname == "perspec"){
 		if (perspecCounter < thePlayer.perspec * 10){
+			fill("#B537DE");
 			perspecCounter++;
 			rect(windowWidth*.3, windowHeight*.2, ((perspecCounter * windowWidth*.5)/(100)), 50);
 		}
@@ -350,6 +359,7 @@ function inc_bar(barname){
 	}
 	else if (barname == "meaning"){
 		if (meaningCounter < thePlayer.meaning * 10){
+			fill("#DE6237");
 			meaningCounter++;
 			rect(windowWidth*.3, windowHeight*.3, ((meaningCounter * windowWidth*.5)/(100)), 50);
 		}
@@ -357,6 +367,7 @@ function inc_bar(barname){
 	}
 	else if (barname == "selfy"){
 		if (selfyCounter < thePlayer.selfy * 10){
+			fill("#5FDE37");
 			selfyCounter++;
 			rect(windowWidth*.3, windowHeight*.4, ((selfyCounter * windowWidth*.5)/(100)), 50);
 		}
