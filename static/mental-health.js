@@ -1,3 +1,15 @@
+//TODO:
+/*
+Test on show monitor
+*/
+var socialCounter = 0;
+var perspecCounter = 0;
+var meaningCounter = 0;
+var selfyCounter = 0;
+var socialTimer;
+var perspecTimer;
+var meaningTimer;
+var selfyTimer;
 var game_data;
 var bg_image;
 var inputData;
@@ -14,14 +26,19 @@ var user_data;
 
 function preload() {
     game_data = loadJSON("questions.json");
-    bg_image = loadImage("static/Shishapangma.jpg");
+	phase0 = loadImage("static/phase0.png");
+	phase1 = loadImage("static/phase1.jpg");
+	phase4 = loadImage("static/phase4.jpg");
+	phase5 = loadImage("static/phase5.jpg");
+	results = loadImage("static/results.jpg");
+    bg_image = loadImage("static/bg.png");
     imgDC = loadImage('static/Yellow-Tree-logo.png');
     //Eventually this should use the URL param to make an AJAX call
     user_data = {
         quotes: ["I seriously love Kanye's new album, made my day!",
         "Today was the worst day ever.",
         "I miss you too girl!",
-        "I'm so sad about how shitty America can be #Flint"]
+        "I'm ssfdajkfjksdjfkjsdalkfjskdlaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa fjkds jskdfj ks jskdf jsdkf sd jfks f jks fjksf jksf jksf jksf jksf jskf jskfjfksjfks jkfsjk aaaao sad about how shitty America can be #Flint"]
     };
 }
 
@@ -151,17 +168,18 @@ var Game = function (displayer, status) {
     },
 
     this.startOver = function () {
-        this.phase = 0;
+		
     }
 
 };
 
 var DisplayBox = function () {
 
-    this.X = windowWidth*.25;
-    this.Y = windowHeight*.1;
-    this.wide = windowWidth*.6; 
-    this.high = windowHeight*.55;
+	this.wide = windowWidth*.85; 
+    this.high = windowHeight*.8;
+	this.X = (windowWidth - this.wide) / 2; 
+    this.Y = 0;
+
     this.questions;
 
     this.myText = "Hold on just a moment...";
@@ -227,7 +245,8 @@ var DisplayBox = function () {
     },
 
     this.nextQ = function () {
-        if (this.questions.length > 0) {
+		if (myGame.phase == 6) window.location.replace("http://stackoverflow.com");
+        else if (this.questions.length > 0) {
             qu = this.questions.pop();
             currQ = qu;
             if (myGame.phase == 1){
@@ -235,9 +254,7 @@ var DisplayBox = function () {
             } else if (myGame.phase == 2 || myGame.phase == 3 || myGame.phase == 4) {
                 this.myText = qu;
             } else if (myGame.phase == 5) {
-                this.myText = "Do you remember when you said this? \n\n\"" + qu + "\"";
-            } else if (myGame.phase == 6) {
-
+                this.myText = "Do you remember when you said this? \n\"" + qu + "\"";
             }
             this.display();
             enterYet = false;
@@ -250,33 +267,123 @@ var DisplayBox = function () {
 
     this.display = function () {
         push();
-            stroke('#333030');
-            strokeWeight(8);
-            fill('#37483e');
-            rect(this.X, this.Y, this.wide, this.high);
+            stroke(255);
             strokeWeight(2);
+            fill(0);
+            rect(this.X, this.Y, this.wide, this.high);
+			noFill();
+			if (myGame.phase == 0){
+				stroke('#a6c900'); image(phase0, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+			}
+			else if (myGame.phase == 1) {
+				stroke('#3f5b80'); image(phase1, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+			}
+
+			else if (myGame.phase == 2){ stroke('#f2ff5f'); fill(0); }	
+			else if (myGame.phase == 3) stroke('#ff5f7d');
+			else if (myGame.phase == 4)  {
+				stroke('#7d7a8b'); image(phase4, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+			}
+			else if (myGame.phase == 5)  {
+				stroke('#739fc6'); image(phase5, (windowWidth - this.wide*.7)/2, (windowHeight*.03)+10, this.wide*.7, this.high*.6);
+
+			}
+			
+			else if (myGame.phase == 6)  {
+				console.log(thePlayer.social + " " + thePlayer.selfy + " " + thePlayer.perspec + " " + thePlayer.meaning);
+				noStroke();
+				textSize(20);
+				fill("#37B4DE");
+				text("Social ", windowWidth*.2, windowHeight*.15);
+				fill("#B537DE");
+				text("Perspective ", windowWidth*.2, windowHeight*.25);
+				fill("#DE6237");
+				text("Meaning ", windowWidth*.2, windowHeight*.35);
+				fill("#5FDE37");
+				text("Self ", windowWidth*.2, windowHeight*.45);
+				noFill();
+				stroke("#37B4DE");
+				rect(windowWidth*.3, windowHeight*.1, windowWidth*.5, 50);
+				stroke("#B537DE");
+				rect(windowWidth*.3, windowHeight*.2, windowWidth*.5, 50);
+				stroke("#DE6237");
+				rect(windowWidth*.3, windowHeight*.3, windowWidth*.5, 50);
+				stroke("#5FDE37");
+				rect(windowWidth*.3, windowHeight*.4, windowWidth*.5, 50);
+				rectMode(CORNER);
+				stroke(255);
+				var socialTimer = setInterval( function() { inc_bar("social");}, 25);
+				var perspecTimer = setInterval( function() { inc_bar("perspec");}, 25);
+				var meaningTimer = setInterval( function() { inc_bar("meaning");}, 25);
+				var selfyTimer = setInterval( function() { inc_bar("selfy");}, 25);
+			}
+			rect((windowWidth - this.wide*.8)/2, this.Y+10, this.wide*.8, this.high*.7);
+			if(myGame.phase == 2){
+			noStroke();fill(255); textSize(20); textAlign(CENTER); textFont("Georgia"); text("Please record your response in the text box below", windowWidth/2-150, 20, 300, 300);
+			}
+            strokeWeight(0.5);
             fill(255);
+			stroke(255);
             textFont("Georgia");
             textSize(26);
             textAlign(CENTER);
-            text(this.myText, this.X+35, this.Y+35, this.wide-35, this.high-35);
+			if(myGame.phase == 5){
+				text(this.myText, this.X, this.Y+windowHeight*.6, this.wide, this.high-35);
+			}
+			else text(this.myText, this.X, this.Y+windowHeight*.63, this.wide, this.high-35);
         pop();
     }
 
 };
 
+function inc_bar(barname){
+	fill(255);
+	noStroke();
+	if (barname == "social"){
+		if (socialCounter < thePlayer.social * 10){
+			fill("#37B4DE");
+			socialCounter++;
+			rect(windowWidth*.3, windowHeight*.1, ((socialCounter * windowWidth*.5)/(100)), 50);
+		}
+		else clearInterval(socialTimer);
+	}
+	else if (barname == "perspec"){
+		if (perspecCounter < thePlayer.perspec * 10){
+			fill("#B537DE");
+			perspecCounter++;
+			rect(windowWidth*.3, windowHeight*.2, ((perspecCounter * windowWidth*.5)/(100)), 50);
+		}
+		else clearInterval(perspecTimer);
+	}
+	else if (barname == "meaning"){
+		if (meaningCounter < thePlayer.meaning * 10){
+			fill("#DE6237");
+			meaningCounter++;
+			rect(windowWidth*.3, windowHeight*.3, ((meaningCounter * windowWidth*.5)/(100)), 50);
+		}
+		else clearInterval(meaningTimer);
+	}
+	else if (barname == "selfy"){
+		if (selfyCounter < thePlayer.selfy * 10){
+			fill("#5FDE37");
+			selfyCounter++;
+			rect(windowWidth*.3, windowHeight*.4, ((selfyCounter * windowWidth*.5)/(100)), 50);
+		}
+		else clearInterval(selfyTimer);
+	}
+}
+
 var InputBox = function () {
     this.myElem;
-    this.X = windowWidth*.20;
-    this.Y = windowHeight*.7;
-    this.wide = windowWidth*.7; 
+    this.wide = windowWidth*.6; 
     this.high = windowHeight*.25;
+    this.Y = windowHeight*.57;
+    this.X = (windowWidth - this.wide) / 2;
     this.valDiv;
     inputStuff = this;
     qCount = 0;
 
     this.generate = function () {
-
         removeElements();
         if (myGame.phase == 0) {
             this.myElem = createElement('input');
@@ -286,23 +393,25 @@ var InputBox = function () {
             this.myElem.attribute("step", 1);
             this.myElem.id('inputter');
             this.myElem.changed(this.newVal);
-            this.myElem.position(this.X+(this.wide*.08), this.Y+this.high*.4);
+            this.myElem.position(this.X+this.high*.06, this.Y+this.high*.5);
             this.myElem.style('width', "60%");
-
+			
             this.valDiv = createDiv();
             this.valDiv.addClass('phase');
-            this.valDiv.position(this.X+(this.wide*.4), this.Y+this.high*.6)
-            this.valDiv.html("Current Value is: " + document.getElementById('inputter').value);
+			this.valDiv.style('font-size', "32px");
+			this.valDiv.style('color', "white");
+            this.valDiv.position(this.X+(this.wide*.5), this.Y+this.high*.6)
+            this.valDiv.html(document.getElementById('inputter').value);
 
         } else if (myGame.phase == 1) {
             counter = 1;
             gdr = game_data.responses_r1;
             myDiv = createDiv('');
-            myDiv.addClass('flex');
-            myDiv.position(this.X + this.wide*.1, this.Y + this.high*.4);
+            myDiv.position((windowWidth*.27), this.Y + this.high*.5);
             for (var res=0; res<gdr.length; res++) {
                 but = createButton(gdr[res].response);
-                but.addClass('btn blue px2 flex-auto');
+                but.addClass('btn px2 flex-auto');
+				but.style('color', "#7AD7FF");
                 but.value(gdr[res].score);
                 but.mousePressed(this.nextOne);
                 myDiv.child(but);
@@ -311,10 +420,10 @@ var InputBox = function () {
         } else if (myGame.phase == 2) {
             //Open Responses
             this.myElem = createElement('textarea');
-            this.myElem.position(this.X+this.wide*.1, this.Y+this.high*.1);
+            this.myElem.position((windowWidth*.35) / 2, this.Y-250);
             this.myElem.id('inputter');
             this.myElem.style('width', "65%");
-            this.myElem.style('height', "15%");
+            this.myElem.style('height', "20%");
             this.myElem.show();
         } else if (myGame.phase == 3) {
             wacs = thePlayer.r2.word_association.banks;
@@ -322,11 +431,12 @@ var InputBox = function () {
             myDiv.addClass('flex flex-wrap');
             myDiv.style("width", "60%");
             myDiv.style('height', "15%");
-            myDiv.position(this.X + this.wide*.05, this.Y + this.high*.2);
+            myDiv.position(this.X, windowHeight*.4);
             for (var word=0; word<wacs.length; word++) {
                 thisWord = wacs[word];
                 but = createButton(thisWord);
-                but.addClass('btn blue px2 flex-auto');
+                but.addClass('btn px2 flex-auto');
+				but.style('color', "#7AD7FF");
                 but.value(thisWord);
                 but.mousePressed(this.selectWord);
                 myDiv.child(but);
@@ -336,10 +446,11 @@ var InputBox = function () {
             fre = thePlayer.r2.conditioning.frequency;
             myDiv = createDiv('');
             myDiv.addClass('flex');
-            myDiv.position(this.X + this.wide*.25, this.Y + this.high*.4);
+            myDiv.position((windowWidth*.30), this.Y + this.high*.5);
             for (var res=0; res<fre.length; res++) {
                 but = createButton(fre[res]);
-                but.addClass('btn blue px3 flex-auto');
+                but.addClass('btn px3 flex-auto');
+				but.style('color', "#7AD7FF");
                 but.value(fre[res]);
                 but.mousePressed(this.valSelect);
                 myDiv.child(but);
@@ -347,11 +458,13 @@ var InputBox = function () {
             }
         } 
     },
-
     this.selectWord = function () {
-
         thePlayer.responses.words[qCount].push(this.value());
-        this.style('color', 'red');
+		textSize(56);
+		var randx = Math.random() * (1000 -220) + 220;
+		var randy = Math.random() * (375 -50) + 50;
+		text(this.value(), randx, randy);
+        this.style('color', '#ff5f7d');
         this.attribute('disabled', 'disabled')
     },
 
@@ -372,13 +485,14 @@ var InputBox = function () {
     }
 
     this.newVal = function () {
-        inputStuff.valDiv.html("Current Value is: " + document.getElementById('inputter').value);
+        inputStuff.valDiv.html(document.getElementById('inputter').value);
     }
 
     this.update = function () {
 
         if (myGame.phase == 2) {
             document.getElementById("inputter").focus();
+
         }
 
     },
@@ -388,7 +502,6 @@ var InputBox = function () {
             stroke('#333030');
             strokeWeight(8);
             fill('rgb(156, 212, 130)');
-            rect(this.X, this.Y, this.wide, this.high);
             strokeWeight(2);
         pop();
         if (myGame.phase == 5){
@@ -396,7 +509,6 @@ var InputBox = function () {
                 fill(0);
                 textFont("Georgia");
                 textSize(20);
-                text("Don't speak, we know just what you're feeling... Press spacebar and keep reflecting", this.X + this.wide*.1, this.Y + this.high*.5);
             pop();
         }
         
@@ -406,10 +518,11 @@ var InputBox = function () {
 
 //Status Box that tells you what phase you're on and the instructions for that phase
 var StatusBox = function () {
-    this.X = 0;
-    this.Y = windowHeight*.05;
-    this.wide = windowWidth *.15;
+
+    this.wide = windowWidth*.9;
     this.high = windowHeight * .6;
+    this.Y = windowHeight*.87;
+    this.X = (windowWidth - this.wide) / 2;
     this.inst = "Hold on...";
 
     //Updates the state of the Status Box for each round of the game
@@ -445,20 +558,15 @@ var StatusBox = function () {
         push();
             strokeWeight(2);
             fill('#333030');
-            rect(this.X, this.Y, this.wide, this.high);
-            image(imgDC, this.X+this.wide*.05, this.Y+this.high*.05, this.wide*.4, this.high*.2);
             fill(255);
             strokeWeight(1);
             textFont("Georgia");
             textSize(20);
-            textAlign(RIGHT);
-            text("Phase:", this.wide*.85, this.Y+this.high*.2);
             textSize(24);
-            text(myGame.phase, this.wide*.8, this.Y+this.high*.3);
-            textSize(20);
-            text("Instructions:", this.wide*.85, this.Y+this.high*.4);
-            textAlign(RIGHT);
-            text(this.inst, this.wide*.10, this.Y+this.high*.5, this.wide*.75, this.Y+this.high*.95)
+            textSize(28);
+            textAlign(CENTER);
+			text("Instructions:", this.X, this.Y-30, this.wide, this.high);
+            text(this.inst, this.X, this.Y, this.wide, this.high);
         pop();
         
     }
@@ -483,5 +591,9 @@ function keyPressed() {
     } else if (myGame.phase == 5 && key == ' ') {
         myDisplay.nextQ();
         return false;
+    } else if (keyCode === ENTER && enterYet == false && myGame.phase == 6) {
+		enterYet = true;
+		myGame.resetInputs();
+        myDisplay.nextQ();
     }
 }
