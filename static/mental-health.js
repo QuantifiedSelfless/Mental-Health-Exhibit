@@ -1,8 +1,6 @@
 //TODO:
 /*
 Test on show monitor
-Redirect on ENTER at results screen
-test/reposition phase 5 (long quotes)
 */
 var socialCounter = 0;
 var perspecCounter = 0;
@@ -40,7 +38,7 @@ function preload() {
         quotes: ["I seriously love Kanye's new album, made my day!",
         "Today was the worst day ever.",
         "I miss you too girl!",
-        "I'm so sad about how shitty America can be #Flint"]
+        "I'm ssfdajkfjksdjfkjsdalkfjskdlaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa fjkds jskdfj ks jskdf jsdkf sd jfks f jks fjksf jksf jksf jksf jksf jskf jskfjfksjfks jkfsjk aaaao sad about how shitty America can be #Flint"]
     };
 }
 
@@ -170,7 +168,7 @@ var Game = function (displayer, status) {
     },
 
     this.startOver = function () {
-        this.phase = 0;
+		
     }
 
 };
@@ -247,7 +245,8 @@ var DisplayBox = function () {
     },
 
     this.nextQ = function () {
-        if (this.questions.length > 0) {
+		if (myGame.phase == 6) window.location.replace("http://stackoverflow.com");
+        else if (this.questions.length > 0) {
             qu = this.questions.pop();
             currQ = qu;
             if (myGame.phase == 1){
@@ -255,9 +254,7 @@ var DisplayBox = function () {
             } else if (myGame.phase == 2 || myGame.phase == 3 || myGame.phase == 4) {
                 this.myText = qu;
             } else if (myGame.phase == 5) {
-                this.myText = "Do you remember when you said this? \n\n\"" + qu + "\"";
-            } else if (myGame.phase == 6) {
-
+                this.myText = "Do you remember when you said this? \n\"" + qu + "\"";
             }
             this.display();
             enterYet = false;
@@ -293,8 +290,6 @@ var DisplayBox = function () {
 			}
 			
 			else if (myGame.phase == 6)  {
-				//TODO: Adjust for show monitor
-				//		Color bars
 				console.log(thePlayer.social + " " + thePlayer.selfy + " " + thePlayer.perspec + " " + thePlayer.meaning);
 				noStroke();
 				textSize(20);
@@ -332,7 +327,10 @@ var DisplayBox = function () {
             textFont("Georgia");
             textSize(26);
             textAlign(CENTER);
-            text(this.myText, this.X, this.Y+windowHeight*.63, this.wide, this.high-35);
+			if(myGame.phase == 5){
+				text(this.myText, this.X, this.Y+windowHeight*.6, this.wide, this.high-35);
+			}
+			else text(this.myText, this.X, this.Y+windowHeight*.63, this.wide, this.high-35);
         pop();
     }
 
@@ -409,7 +407,7 @@ var InputBox = function () {
             counter = 1;
             gdr = game_data.responses_r1;
             myDiv = createDiv('');
-            myDiv.position((windowWidth/4), this.Y + this.high*.5);
+            myDiv.position((windowWidth*.27), this.Y + this.high*.5);
             for (var res=0; res<gdr.length; res++) {
                 but = createButton(gdr[res].response);
                 but.addClass('btn px2 flex-auto');
@@ -448,8 +446,7 @@ var InputBox = function () {
             fre = thePlayer.r2.conditioning.frequency;
             myDiv = createDiv('');
             myDiv.addClass('flex');
-            //myDiv.position(this.X + this.wide*.25, this.Y + this.high*.6);
-            myDiv.position((windowWidth/3), this.Y + this.high*.5);
+            myDiv.position((windowWidth*.30), this.Y + this.high*.5);
             for (var res=0; res<fre.length; res++) {
                 but = createButton(fre[res]);
                 but.addClass('btn px3 flex-auto');
@@ -461,14 +458,6 @@ var InputBox = function () {
             }
         } 
     },
-	/*
-	this.wide = windowWidth*.85; 
-    this.high = windowHeight*.8;
-	this.X = (windowWidth - this.wide) / 2; 
-    this.Y = 0;
-	rect((windowWidth - this.wide*.8)/2, this.Y+10, this.wide*.8, this.high*.7);
-*/
-
     this.selectWord = function () {
         thePlayer.responses.words[qCount].push(this.value());
 		textSize(56);
@@ -520,7 +509,6 @@ var InputBox = function () {
                 fill(0);
                 textFont("Georgia");
                 textSize(20);
-                text("Don't speak, we know just what you're feeling... Press spacebar and keep reflecting", this.X + this.wide*.1, this.Y + this.high*.5);
             pop();
         }
         
@@ -603,5 +591,9 @@ function keyPressed() {
     } else if (myGame.phase == 5 && key == ' ') {
         myDisplay.nextQ();
         return false;
+    } else if (keyCode === ENTER && enterYet == false && myGame.phase == 6) {
+		enterYet = true;
+		myGame.resetInputs();
+        myDisplay.nextQ();
     }
 }
