@@ -33,13 +33,17 @@ function preload() {
 	results = loadImage("static/results.jpg");
     bg_image = loadImage("static/bg.png");
     imgDC = loadImage('static/Yellow-Tree-logo.png');
-    //Eventually this should use the URL param to make an AJAX call
-    user_data = {
-        quotes: ["I seriously love Kanye's new album, made my day!",
-        "Today was the worst day ever.",
-        "I miss you too girl!",
-        "I'm ssfdajkfjksdjfkjsdalkfjskdlaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa fjkds jskdfj ks jskdf jsdkf sd jfks f jks fjksf jksf jksf jksf jksf jskf jskfjfksjfks jkfsjk aaaao sad about how shitty America can be #Flint"]
-    };
+
+    $.ajax ({ //Grab the Data via Gulper.
+        url: "http://quantifiedselfbackend.local:6060/ownup/quotes?userid=b9bef55d-e1c2-418b-979d-62762902ee38",
+        action: "GET",
+        success: function(data){
+            user_data = {quotes: data.data.quotes};
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
 }
 
 function setup() {
@@ -222,7 +226,7 @@ var DisplayBox = function () {
             shuffle(this.questions);
             this.nextQ();
         } else if (myGame.phase == 5) {
-            this.questions = thePlayer.pdata.quotes;
+            this.questions = user_data.quotes;
             shuffle(this.questions);
             this.nextQ();
         } else if (myGame.phase == 6) {
@@ -254,6 +258,7 @@ var DisplayBox = function () {
             } else if (myGame.phase == 2 || myGame.phase == 3 || myGame.phase == 4) {
                 this.myText = qu;
             } else if (myGame.phase == 5) {
+                qu = qu.replace(/\r?\n|\r/g, " ");
                 this.myText = "Do you remember when you said this? \n\"" + qu + "\"";
             }
             this.display();
