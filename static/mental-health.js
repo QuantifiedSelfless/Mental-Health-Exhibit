@@ -35,8 +35,9 @@ function preload() {
     imgDC = loadImage('static/Yellow-Tree-logo.png');
 
     $.ajax ({ //Grab the Data via Gulper.
-        url: "http://quantifiedselfbackend.local:6060/ownup/quotes?userid=b9bef55d-e1c2-418b-979d-62762902ee38",
-        action: "GET",
+        url: "http://quantifiedselfbackend.local:6060/ownup/quotes?",
+        type: "GET",
+        data: getURLParams(),
         success: function(data){
             user_data = {quotes: data.data.quotes};
         },
