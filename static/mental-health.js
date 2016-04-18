@@ -276,7 +276,7 @@ var DisplayBox = function () {
     },
 
     this.nextQ = function () {
-		if (myGame.phase == 6) window.location.replace("http://stackoverflow.com");
+		if (myGame.phase == 6) window.location.replace("http://localhost:8000");
         else if (this.questions.length > 0) {
             qu = this.questions.pop();
             currQ = qu;
