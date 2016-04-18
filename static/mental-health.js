@@ -63,17 +63,8 @@ function preload() {
     bg_image = loadImage("static/bg.png");
     imgDC = loadImage('static/Yellow-Tree-logo.png');
 
-    $.ajax ({ //Grab the Data via Gulper.
-        url: "http://quantifiedselfbackend.local:6060/ownup/quotes?",
-        type: "GET",
-        data: getURLParams(),
-        success: function(data){
-            user_data = {quotes: data.data.quotes};
-        },
-        error: function(data){
-            console.log(data);
-        }
-    });
+    make_AJAX_call(getURLParams(), 0, 3);
+
 }
 
 function setup() {
