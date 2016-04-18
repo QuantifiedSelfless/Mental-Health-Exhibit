@@ -2,6 +2,11 @@
 /*
 Test on show monitor
 */
+
+var socket = io.connect('http://localhost:3000')
+socket.on('rfid', function(data){
+    setTimeout(function() { window.location = "http://localhost:8000"}, 2000)
+})
 var socialCounter = 0;
 var perspecCounter = 0;
 var meaningCounter = 0;
@@ -23,6 +28,7 @@ var currQ;
 var myDisplay;
 var qCount;
 var user_data;
+
 
 function make_AJAX_call(data, tryCount, retryLimit){
     $.ajax({
