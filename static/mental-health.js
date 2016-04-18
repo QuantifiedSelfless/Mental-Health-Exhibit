@@ -24,6 +24,35 @@ var myDisplay;
 var qCount;
 var user_data;
 
+function make_AJAX_call(data, tryCount, retryLimit){
+    $.ajax({
+        type: 'GET',
+        url: "http://quantifiedselfbackend.local:6060/mental_health/quotes",
+        data: data,
+        success: function(data) {
+            console.log(data.data);
+            the_goods = data.data.quotes;
+            shuffle(the_goods, true);
+            theQuotes = subset(the_goods, 0, 10);
+            user_data = {quotes: theQuotes};
+        },
+        error: function(resp) {
+            console.log("Error: Ajax call failed");
+            tryCount++;
+            if (tryCount >= retryLimit){
+                window.location = "http://localhost:8000?error=try_again";
+            }
+            else { //Try again with exponential backoff.
+                setTimeout(function(){ 
+                    return make_AJAX_call(data, tryCount, retryLimit);
+                }, Math.pow(2, tryCount) * 1000);
+                return false;
+            }
+        }
+    });
+    return false;
+}
+
 function preload() {
     game_data = loadJSON("questions.json");
 	phase0 = loadImage("static/phase0.png");
