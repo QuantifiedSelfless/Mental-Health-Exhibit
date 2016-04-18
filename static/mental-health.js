@@ -37,7 +37,7 @@ function make_AJAX_call(data, tryCount, retryLimit){
         data: data,
         success: function(data) {
             console.log(data.data);
-            the_goods = data.data.quotes;
+            the_goods = data.data;
             shuffle(the_goods, true);
             theQuotes = subset(the_goods, 0, 10);
             user_data = {quotes: theQuotes};
