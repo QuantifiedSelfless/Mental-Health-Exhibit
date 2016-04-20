@@ -102,7 +102,7 @@
             "What do you feel when you're asked to take time out of your day for someone or something in your community."],
             "banks" : ["anger", "annoyance", "frustration", "empathy", "sympathy", "apathy", "concern", "sadness", "confusion", "condemnation", "anxiety", "enjoyment", "graciousness", "love", "hate", "impatience", "patience"]
         },
-        "advice": "Our results show that your sociability is your major issue. Consider saying 'yes' more often to friends and being more open and generous. Even if it makes you feel vulnerable having friends who care about you is the only path to longterm happiness.",
+        "advice": "Our results show that you need to improve your social life. Consider saying 'yes' more often to friends. Having friends who care about you is the only path to longterm happiness.",
         "conditioning" : {
             "actions" : ["I try to put my self in the shoes of other people who are having troubles.", 
             "I share resources that I have earned with others in my community.", 
@@ -141,7 +141,7 @@
             "What words would you use to describe the meaning of life?"],
             "banks" : ["concerned", "important", "love", "confused", "boredom", "greed", "amazing", "enjoyable", "terrible", "angry", "corrupt", "fun", "happiness", "comfort", "shitty", "nothing", "sharing"]
         },
-        "advice": "Our analysis shows us that you haven't established a life purpose for yourself. This is not an easy thing to do, but remember how many people rely on you in this world. Work hard for the world, and you'll develop the meaning you long for.",
+        "advice": "Our analysis shows us that you haven't established a life purpose. This is not an easy, but remember, many people rely on you. Work hard for the world, and you'll develop the meaning you long for.",
         "conditioning" : {
             "actions" : ["I take time to reflect on what I'm doing with my life.", 
             "I find my actions contribute to a greater good around me.", 
@@ -160,7 +160,7 @@
             "What words would you use to describe how you grew up?"],
             "banks" : ["privileged", "lucky", "grateful", "difficult", "impossible", "unfair", "exciting", "better", "worse", "upsetting", "easy"]
         },
-        "advice": "From what we can tell you need to step back and consider how much worse your life could be. All in all, things aren't as bad as they seem through your cloudy perspective. Chipper up and consider those less fortunate.",
+        "advice": "You need to step back and consider how much worse your life could be. All in all, things aren't as bad as they seem through your cloudy perspective. Chipper up and consider those less fortunate.",
         "conditioning" : {
             "actions" : ["I consider how my life compares to others around me.", 
             "I try to not get stressed out over small things in life.", 
