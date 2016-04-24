@@ -1,8 +1,3 @@
-//TODO:
-/*
-Test on show monitor
-*/
-
 var socket = io.connect('http://localhost:3000')
 socket.on('rfid', function(data){
     setTimeout(function() { window.location = "http://localhost:8000"}, 2000)
@@ -493,8 +488,8 @@ var InputBox = function () {
     this.selectWord = function () {
         thePlayer.responses.words[qCount].push(this.value());
 		textSize(56);
-		var randx = Math.random() * (1000 -220) + 220;
-		var randy = Math.random() * (375 -50) + 50;
+		var randx = Math.random() * (1000 -270) + 270;
+		var randy = Math.random() * (375 -70) + 70;
 		text(this.value(), randx, randy);
         this.style('color', '#ff5f7d');
         this.attribute('disabled', 'disabled')
@@ -561,10 +556,10 @@ var StatusBox = function () {
     this.update = function () {
         switch (myGame.phase) {
             case 0:
-                this.inst = "Rate your baseline happiness from 1 to 10 then press ENTER";
+                this.inst = "Rate your baseline happiness from 0 to 10 then press ENTER";
                 break;
             case 1:
-                this.inst = "Click the answer that best resprents your current feelings";
+                this.inst = "Click the answer that best represents your current feelings";
                 break;
             case 2:
                 this.inst = "Type out your reflections on the question and press ENTER when you're done.";

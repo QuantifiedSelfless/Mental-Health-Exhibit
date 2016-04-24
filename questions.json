@@ -47,7 +47,7 @@
             }
         },  
         {
-            "question" : "Are you able clear your mind and concentrate?",
+            "question" : "Are you able to clear your mind and concentrate?",
             "scores" : {
                 "social" : 0.1,
                 "self" : 0.4,
@@ -85,11 +85,11 @@
     ],
 
     "responses_r1" : [
-        { "response" : "Not at All", "score": -2 },
+        { "response" : "Not at all", "score": -2 },
         { "response" : "Less than usual", "score": -1 },
         { "response" : "No more than usual", "score": 0 },
         { "response" : "More than usual", "score": 1 },
-        { "response" : "Most Definitely", "score": 2 }
+        { "response" : "Most definitely", "score": 2 }
     ],
 
     "socialqs_r2" : {
@@ -133,7 +133,7 @@
 
     "meaningqs_r2" : {
         "open_response" : ["Consider your current life situation. What do you see yourself working toward?", 
-        "Think about when you feel most proud of yourself. Describe what are you doing?", 
+        "Think about when you feel most proud of yourself. Describe what you are doing?", 
         "What's the most important thing for you? Are you doing it?"],
         "word_association" : {
             "prompts" : ["If you were going to die today, what words would you use describe your life?", 
